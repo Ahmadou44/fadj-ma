@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  phone     String   @unique
+  password  String
+  name      String
+  role      String   @default("PATIENT") // PATIENT, PHARMACY, ADMIN
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  pharmacy  Pharmacy?
+  orders    Order[]
+}
+
+model Pharmacy {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  name        String
+  address     String   @default("Dakar")
+  latitude    Float    @default(14.7167)
+  longitude   Float    @default(-17.4677)
+  license     String?
+  isVerified  Boolean  @default(false)
+  
+  stocks      Stock[]
+  sales       Order[]
+}
+
+model Drug {
+  id          String   @id @default(uuid())
+  name        String
+  dosage      String?
+  form        String?
+  class       String?
+  description String?
+  
+  stocks      Stock[]
+}
+
+model Stock {
+  id          String   @id @default(uuid())
+  pharmacyId  String
+  pharmacy    Pharmacy @relation(fields: [pharmacyId], references: [id])
+  drugId      String
+  drug        Drug     @relation(fields: [drugId], references: [id])
+  quantity    Int      @default(0)
+  price       Float    @default(0.0)
+  
+  @@unique([pharmacyId, drugId])
+}
+
+model Order {
+  id          String   @id @default(uuid())
+  patientId   String
+  patient     User     @relation(fields: [patientId], references: [id])
+  pharmacyId  String
+  pharmacy    Pharmacy @relation(fields: [pharmacyId], references: [id])
+  
+  status      String   @default("PENDING") // PENDING, CONFIRMED, REJECTED, COMPLETED
+  totalPrice  Float    @default(0.0)
+  prescriptionUrl String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
