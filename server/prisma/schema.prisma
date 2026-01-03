@@ -12,7 +12,7 @@ model User {
   phone     String   @unique
   password  String
   name      String
-  role      String   @default("PATIENT") // PATIENT, PHARMACY, ADMIN
+  role      String   @default("PATIENT") // PATIENT, PHARMACY, ADMIN, DELIVERER
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -21,18 +21,19 @@ model User {
 }
 
 model Pharmacy {
-  id          String   @id @default(uuid())
-  userId      String   @unique
-  user        User     @relation(fields: [userId], references: [id])
-  name        String
-  address     String   @default("Dakar")
-  latitude    Float    @default(14.7167)
-  longitude   Float    @default(-17.4677)
-  license     String?
-  isVerified  Boolean  @default(false)
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  name            String
+  address         String   @default("Dakar")
+  latitude        Float    @default(14.7167)
+  longitude       Float    @default(-17.4677)
+  license         String?
+  isVerified      Boolean  @default(false)
+  verificationStatus String @default("PENDING") // PENDING, VERIFIED, REJECTED
   
-  stocks      Stock[]
-  sales       Order[]
+  stocks          Stock[]
+  sales           Order[]
 }
 
 model Drug {
@@ -40,8 +41,9 @@ model Drug {
   name        String
   dosage      String?
   form        String?
-  class       String?
+  class       String? // Therapeutic class
   description String?
+  imageUrl    String?
   
   stocks      Stock[]
 }
@@ -59,16 +61,21 @@ model Stock {
 }
 
 model Order {
-  id          String   @id @default(uuid())
-  patientId   String
-  patient     User     @relation(fields: [patientId], references: [id])
-  pharmacyId  String
-  pharmacy    Pharmacy @relation(fields: [pharmacyId], references: [id])
+  id             String   @id @default(uuid())
+  patientId      String
+  patient        User     @relation(fields: [patientId], references: [id])
+  pharmacyId     String
+  pharmacy       Pharmacy @relation(fields: [pharmacyId], references: [id])
   
-  status      String   @default("PENDING") // PENDING, CONFIRMED, REJECTED, COMPLETED
-  totalPrice  Float    @default(0.0)
+  status         String   @default("PENDING") // PENDING, CONFIRMED, READY, COMPLETED, CANCELLED
+  type           String   @default("PICKUP") // PICKUP, DELIVERY
+  
+  totalPrice     Float    @default(0.0)
   prescriptionUrl String?
   
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  paymentMethod  String   @default("CASH") // CASH, WAVE, OM, FREE
+  paymentStatus  String   @default("PENDING") // PENDING, PAID, FAILED
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
