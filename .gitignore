@@ -38,3 +38,4 @@ ios/
 # Expo
 .expo/
 web-build/
+*.db
