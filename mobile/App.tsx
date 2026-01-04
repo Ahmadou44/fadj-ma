@@ -16,7 +16,9 @@ import RoleSelectionScreen from './src/screens/RoleSelectionScreen';
 import ClientHomeScreen from './src/screens/ClientHomeScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import MapScreen from './src/screens/MapScreen';
-import ProductDetailsScreen from './src/screens/ProductDetailsScreen';
+import OrderDetailScreen from './src/screens/OrderDetailScreen';
+import ProfessionalOrderDetailScreen from './src/screens/ProfessionalOrderDetailScreen';
+import SubscriptionScreen from './src/screens/SubscriptionScreen';
 
 // Professional Screens
 import ProfessionalHomeScreen from './src/screens/ProfessionalHomeScreen';
@@ -79,7 +81,16 @@ function RootNavigator() {
               component={ProfessionalProfileScreen}
               options={{ animationEnabled: true }}
             />
-            {/* Add more professional screens here */}
+            <Stack.Screen
+              name="OrderDetail"
+              component={ProfessionalOrderDetailScreen}
+              options={{ animationEnabled: true }}
+            />
+            <Stack.Screen
+              name="Subscription"
+              component={SubscriptionScreen}
+              options={{ animationEnabled: true }}
+            />
           </>
         ) : (
           // Client Stack
