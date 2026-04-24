@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --medical-50: #f0fdf4;
+  --medical-100: #dcfce7;
+  --medical-200: #bbf7d0;
+  --medical-300: #86efac;
+  --medical-400: #4ade80;
+  --medical-500: #22c55e;
+  --medical-600: #16a34a;
+  --medical-700: #15803d;
+  --medical-800: #166534;
+  --medical-900: #145231;
+}
+
+* {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply bg-white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .medical-gradient {
+    @apply bg-gradient-to-r from-medical-600 to-medical-700;
+  }
+
+  .btn-primary {
+    @apply bg-medical-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-medical-700 transition;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-900 px-6 py-2 rounded-lg font-semibold hover:bg-gray-200 transition;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md hover:shadow-lg transition;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-in-out;
+}
