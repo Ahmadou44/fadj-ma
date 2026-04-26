@@ -5,6 +5,10 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  // Désactiver la génération statique pour les pages dynamiques
+  experimental: {
+    isrMemoryCacheSize: 0,
+  },
 }
 
 module.exports = nextConfig
