@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Heart, MapPin, Clock, Star, Search, ShoppingCart, User, Pill, TrendingUp, Users, Zap } from 'lucide-react'
+import { Heart, MapPin, Clock, Star, Search, ShoppingCart, User, Pill, TrendingUp, Users, Zap, Navigation } from 'lucide-react'
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -70,6 +70,12 @@ export default function Home() {
               </div>
             </div>
             <nav className="flex items-center gap-6">
+              <Link href="/pharmacies-garde" className="text-gray-700 hover:text-green-600 transition font-semibold text-sm">
+                Pharmacies de Garde
+              </Link>
+              <Link href="/help" className="text-gray-700 hover:text-green-600 transition font-semibold text-sm">
+                Aide
+              </Link>
               <Link href="/dashboard" className="p-2 hover:bg-gray-100 rounded-lg transition-all duration-300 hover-scale">
                 <ShoppingCart size={24} className="text-gray-700" />
               </Link>
@@ -124,17 +130,35 @@ export default function Home() {
                   <p className="text-gray-600">Support client</p>
                 </div>
               </div>
+
+              <div className="mt-12 flex flex-wrap gap-4">
+                <Link href="/payment-methods" className="btn btn-secondary btn-sm">
+                  💳 Modes de Paiement
+                </Link>
+                <Link href="/about" className="btn btn-secondary btn-sm">
+                  ℹ️ À Propos
+                </Link>
+                <Link href="/contact" className="btn btn-secondary btn-sm">
+                  📞 Nous Contacter
+                </Link>
+                <Link href="/profile" className="btn btn-secondary btn-sm">
+                  👤 Mon Profil
+                </Link>
+              </div>
             </div>
 
             {/* Image */}
             <div className={`relative h-96 transition-all duration-700 delay-200 ${isLoaded ? 'animate-slideInRight' : 'opacity-0 translate-x-[30px]'}`}>
               <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-blue-600 rounded-3xl shadow-2xl opacity-20 blur-2xl"></div>
               <div className="relative h-full bg-gradient-to-br from-green-100 to-blue-100 rounded-3xl flex items-center justify-center shadow-xl border border-green-200/50">
-                <div className="text-center">
-                  <div className="text-8xl mb-4 animate-float">💊</div>
-                  <p className="text-xl font-semibold text-gray-700">Livraison Rapide</p>
-                  <p className="text-gray-600">30 minutes</p>
-                </div>
+            <div className="text-center space-y-4">
+              <div className="text-8xl mb-4 animate-float">💊</div>
+              <p className="text-xl font-semibold text-gray-700">Livraison Rapide</p>
+              <p className="text-gray-600">30 minutes</p>
+              <Link href="/pharmacies-garde" className="btn btn-primary btn-sm inline-flex">
+                Voir les Pharmacies de Garde
+              </Link>
+            </div>
               </div>
             </div>
           </div>
@@ -295,8 +319,16 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2025 Fadj Ma. Tous droits réservés. Fait avec ❤️ à Dakar</p>
+          <div className="border-t border-gray-800 pt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-sm">
+              <Link href="/about" className="text-gray-400 hover:text-white transition">À Propos</Link>
+              <Link href="/contact" className="text-gray-400 hover:text-white transition">Contact</Link>
+              <Link href="/help" className="text-gray-400 hover:text-white transition">Aide</Link>
+              <Link href="/payment-methods" className="text-gray-400 hover:text-white transition">Paiement</Link>
+            </div>
+            <div className="text-center text-sm text-gray-400">
+              <p>&copy; 2025 Fadj Ma. Tous droits réservés. Fait avec ❤️ à Dakar</p>
+            </div>
           </div>
         </div>
       </footer>
