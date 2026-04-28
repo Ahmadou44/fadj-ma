@@ -6,21 +6,71 @@
   --medical-primary: #0ea5e9;
   --medical-secondary: #06b6d4;
   --medical-accent: #10b981;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.4);
 }
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 font-sans antialiased;
-    background-image: radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.03) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
+    @apply bg-slate-50 text-slate-900 font-sans antialiased overflow-x-hidden;
+    background: 
+      radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+      #f8fafc;
+    background-attachment: fixed;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 rounded-full hover:bg-medical-primary transition-all duration-300;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-white/70 backdrop-blur-xl border border-white/30 shadow-xl;
+    @apply bg-white/70 backdrop-blur-3xl border border-white/50 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-500;
   }
-  
+
   .neon-button {
-    @apply relative overflow-hidden transition-all duration-300 active:scale-95 bg-medical-primary text-white shadow-lg shadow-sky-500/20 hover:shadow-sky-500/40;
+    @apply relative overflow-hidden transition-all duration-500 active:scale-95 bg-medical-primary text-white shadow-2xl shadow-sky-500/20 hover:shadow-sky-500/40 hover:-translate-y-1 font-black tracking-tighter;
   }
+
+  .futuristic-input {
+    @apply bg-white/40 backdrop-blur-md border border-slate-200/60 rounded-2xl px-6 py-4 focus:ring-8 focus:ring-medical-primary/5 focus:border-medical-primary transition-all outline-none font-bold text-slate-700 placeholder-slate-400 shadow-inner;
+  }
+
+  .status-badge {
+    @apply px-4 py-1.5 rounded-xl font-black text-[10px] uppercase tracking-widest border flex items-center gap-2;
+  }
+}
+
+/* Advanced Animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }
