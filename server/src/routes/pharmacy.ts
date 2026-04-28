@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
 // Search Drugs
 router.get('/search', async (req, res) => {
-    const { q, lat, lng } = req.query; // q = drug name
+    const { q } = req.query; // q = drug name
 
     if (!q) return res.status(400).json({ error: "Query required" });
 
@@ -25,7 +25,6 @@ router.get('/search', async (req, res) => {
                 drug: {
                     name: {
                         contains: String(q)
-                        // mode: 'insensitive' // SQLite doesn't support insensitive easily without raw query, assume exact or like
                     }
                 },
                 quantity: { gt: 0 }

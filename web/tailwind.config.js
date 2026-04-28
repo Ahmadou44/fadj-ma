@@ -13,6 +13,9 @@ export default {
                     500: '#22c55e',
                     600: '#16a34a',
                     900: '#14532d',
+                    primary: '#0ea5e9',
+                    secondary: '#06b6d4',
+                    accent: '#10b981',
                 }
             }
         },

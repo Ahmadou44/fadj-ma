@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRouter from './routes/auth';
 import pharmacyRouter from './routes/pharmacy';
+import orderRouter from './routes/order';
+import messageRouter from './routes/message';
 
 dotenv.config();
 
@@ -18,6 +20,8 @@ app.get('/health', (req, res) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/pharmacy', pharmacyRouter);
+app.use('/api/order', orderRouter);
+app.use('/api/message', messageRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

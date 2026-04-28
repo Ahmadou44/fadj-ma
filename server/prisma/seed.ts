@@ -53,6 +53,18 @@ async function main() {
     await prisma.user.deleteMany();
     await prisma.drug.deleteMany();
 
+    // 0. Create Mock Patient
+    await prisma.user.create({
+        data: {
+            id: 'mock-patient-id',
+            phone: '771234567',
+            password: 'pass',
+            name: 'Moussa Diop',
+            role: 'PATIENT'
+        }
+    });
+    console.log('Created mock patient for testing.');
+
     // 1. Create Pharmacies
     const pharmacies = [];
     for (let i = 0; i < PHARMACY_NAMES.length; i++) {

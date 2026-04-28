@@ -18,6 +18,8 @@ model User {
 
   pharmacy  Pharmacy?
   orders    Order[]
+  sentMessages     Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
 }
 
 model Pharmacy {
@@ -44,6 +46,7 @@ model Drug {
   description String?
   
   stocks      Stock[]
+  orderItems  OrderItem[]
 }
 
 model Stock {
@@ -65,10 +68,46 @@ model Order {
   pharmacyId  String
   pharmacy    Pharmacy @relation(fields: [pharmacyId], references: [id])
   
-  status      String   @default("PENDING") // PENDING, CONFIRMED, REJECTED, COMPLETED
-  totalPrice  Float    @default(0.0)
+  status          String   @default("PENDING") // PENDING, CONFIRMED, REJECTED, COMPLETED
+  paymentStatus   String   @default("UNPAID")   // UNPAID, PAID, REFUNDED
+  paymentMethod   String?                       // ORANGE_MONEY, FREE_MONEY, CASH
+  totalPrice      Float    @default(0.0)
   prescriptionUrl String?
+  
+  items       OrderItem[]
+  transactions Transaction[]
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  amount    Float
+  method    String   // ORANGE_MONEY, FREE_MONEY
+  status    String   @default("PENDING") // PENDING, SUCCESS, FAILED
+  reference String?  // External provider reference
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id          String   @id @default(uuid())
+  content     String
+  senderId    String
+  sender      User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId  String
+  receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  drugId    String
+  drug      Drug     @relation(fields: [drugId], references: [id])
+  quantity  Int
+  price     Float
 }
