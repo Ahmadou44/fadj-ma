@@ -12,7 +12,27 @@ export default function HomeScreen({ navigation }: any) {
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [lastOrderId, setLastOrderId] = useState<string | null>(null);
+    const [userLocation] = useState({ latitude: 14.6928, longitude: -17.4467 }); // Center Dakar
     const [tipIndex, setTipIndex] = useState(0);
+
+    const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+        const R = 6371; // km
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return (R * c).toFixed(1);
+    };
+
+    const openInMaps = (lat: number, lng: number, name: string) => {
+        const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+        Alert.alert("NAVIGATE", `Ouvrir l'itinéraire vers ${name} ?`, [
+            { text: "Cancel", style: "cancel" },
+            { text: "Open Maps", onPress: () => {} } // In a real app, use Linking.openURL(url)
+        ]);
+    };
     const tips = [
         "Buvez 2L d'eau pour optimiser la synchronisation neurale.",
         "La lumière du matin booste votre sérotonine.",
@@ -117,9 +137,12 @@ export default function HomeScreen({ navigation }: any) {
                             <Text className="text-white/80 font-black uppercase text-[10px] tracking-widest mb-1">System Status</Text>
                             <Text className="text-white text-2xl font-black tracking-tight leading-7">All Systems Nominal. 40+ Pharmacies Active.</Text>
                         </View>
-                        <View className="bg-white/20 p-4 rounded-3xl backdrop-blur-md">
-                            <Activity size={32} color="white" />
-                        </View>
+                        <TouchableOpacity 
+                            onPress={() => navigation.navigate('Prescriptions')}
+                            className="bg-white/20 p-4 rounded-3xl backdrop-blur-md"
+                        >
+                            <FileText size={32} color="white" />
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -159,12 +182,23 @@ export default function HomeScreen({ navigation }: any) {
                         {pharmacies.map((pharmacy) => (
                             <TouchableOpacity key={pharmacy.id} className="mr-6 bg-white p-6 rounded-[2.5rem] border border-slate-100 w-64 shadow-lg shadow-slate-200/30 overflow-hidden relative">
                                 <View className="absolute top-0 right-0 w-24 h-24 bg-medical-50/50 rounded-full -mr-12 -mt-12" />
-                                <View className="bg-medical-50 w-14 h-14 rounded-2xl mb-4 items-center justify-center">
-                                    <Text className="text-3xl">🏥</Text>
+                                <View className="flex-row justify-between items-start mb-4">
+                                    <View className="bg-medical-50 w-14 h-14 rounded-2xl items-center justify-center">
+                                        <Text className="text-3xl">🏥</Text>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => openInMaps(pharmacy.latitude, pharmacy.longitude, pharmacy.name)}
+                                        className="bg-slate-50 p-3 rounded-xl border border-slate-100"
+                                    >
+                                        <MapIcon size={18} color="#64748b" />
+                                    </TouchableOpacity>
                                 </View>
                                 <Text className="text-xl font-black text-slate-900 tracking-tighter mb-1" numberOfLines={1}>{pharmacy.name}</Text>
-                                <View className="flex-row items-center">
-                                    <Text className="text-[10px] text-medical-600 font-bold uppercase tracking-widest">• Online Now</Text>
+                                <View className="flex-row items-center justify-between">
+                                    <View className="flex-row items-center">
+                                        <Text className="text-[10px] text-medical-600 font-bold uppercase tracking-widest">• {calculateDistance(userLocation.latitude, userLocation.longitude, pharmacy.latitude, pharmacy.longitude)} km</Text>
+                                    </View>
+                                    <Text className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Open Now</Text>
                                 </View>
                             </TouchableOpacity>
                         ))}

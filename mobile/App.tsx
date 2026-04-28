@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import MapScreen from './src/screens/MapScreen';
 import ChatScreen from './src/screens/ChatScreen';
+import PrescriptionsScreen from './src/screens/PrescriptionsScreen';
 import { StatusBar } from 'expo-status-bar';
 
 import ProductDetailsScreen from './src/screens/ProductDetailsScreen';
@@ -24,6 +25,7 @@ export default function App() {
                 <Stack.Screen name="Map" component={MapScreen} />
                 <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
                 <Stack.Screen name="Chat" component={ChatScreen} />
+                <Stack.Screen name="Prescriptions" component={PrescriptionsScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

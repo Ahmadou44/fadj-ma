@@ -7,7 +7,15 @@ const PHARMACY_NAMES = [
     "Pharmacie de la Corniche", "Pharmacie Mermoz", "Pharmacie Fann", "Pharmacie Point E",
     "Pharmacie Medina", "Pharmacie Gueule Tapee", "Pharmacie Ouakam", "Pharmacie Ngor",
     "Pharmacie Yoff", "Pharmacie Almadies", "Pharmacie VDN", "Pharmacie Sacre Coeur",
-    "Pharmacie Liberte", "Pharmacie Dieuppeul", "Pharmacie Castors", "Pharmacie HLM"
+    "Pharmacie Liberte", "Pharmacie Dieuppeul", "Pharmacie Castors", "Pharmacie HLM",
+    "Pharmacie de Grand Yoff", "Pharmacie des Parcelles", "Pharmacie Patte d'Oie", "Pharmacie de Cambérène",
+    "Pharmacie de Pikine", "Pharmacie de Guédiawaye", "Pharmacie de Thiaroye", "Pharmacie de Keur Massar",
+    "Pharmacie de Rufisque", "Pharmacie de Diamniadio", "Pharmacie de Bargny", "Pharmacie de Sébikotane",
+    "Pharmacie de Thiès", "Pharmacie de Mbour", "Pharmacie de Saly", "Pharmacie de Joal",
+    "Pharmacie de Saint-Louis", "Pharmacie de Richard-Toll", "Pharmacie de Dagana", "Pharmacie de Podor",
+    "Pharmacie de Matam", "Pharmacie de Kanel", "Pharmacie de Ourossogui", "Pharmacie de Bakel",
+    "Pharmacie de Tambacounda", "Pharmacie de Kédougou", "Pharmacie de Kolda", "Pharmacie de Sédhiou",
+    "Pharmacie de Ziguinchor", "Pharmacie de Bignona", "Pharmacie de Oussouye", "Pharmacie de Cap Skirring"
 ];
 
 const DRUGS_DB = [
@@ -41,7 +49,16 @@ const DRUGS_DB = [
     { name: 'Seretide', form: 'Spray', class: 'Asthme', price: 12000 },
     { name: 'Kardegic 75mg', form: 'Sachet', class: 'Cardio', price: 1800 },
     { name: 'Tahor 10mg', form: 'Comprimé', class: 'Cholestérol', price: 5000 },
-    // Add more as needed...
+    { name: 'Générique Paracétamol', form: 'Comprimé', class: 'Antalgique', price: 300 },
+    { name: 'Clamoxyl 500mg', form: 'Gélule', class: 'Antibiotique', price: 2200 },
+    { name: 'Nurofen 400mg', form: 'Comprimé', class: 'Anti-inflammatoire', price: 1500 },
+    { name: 'Motilium', form: 'Comprimé', class: 'Nausée', price: 2000 },
+    { name: 'Meteospasmyl', form: 'Gélule', class: 'Digestion', price: 2800 },
+    { name: 'Spasfon Lyoc', form: 'Lyophilisat', class: 'Antispasmodique', price: 2200 },
+    { name: 'Clarityne', form: 'Comprimé', class: 'Allergie', price: 1800 },
+    { name: 'Inexium 20mg', form: 'Comprimé', class: 'Estomac', price: 4000 },
+    { name: 'Mopral 20mg', form: 'Gélule', class: 'Estomac', price: 3500 },
+    { name: 'Eludril', form: 'Bain de bouche', class: 'Hygiène', price: 2500 }
 ];
 
 async function main() {
